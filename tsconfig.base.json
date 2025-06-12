@@ -15,12 +15,20 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@taskly/alert-smart": ["libs/activity-center/alert/smart/src/index.ts"],
+      "@taskly/alert-ui": ["libs/activity-center/alert/ui/src/index.ts"],
       "@taskly/authentication-smart": [
         "libs/authentication/smart/src/index.ts"
       ],
       "@taskly/authentication-ui": ["libs/authentication/ui/src/index.ts"],
       "@taskly/dashboard-smart": ["libs/dashboard/smart/src/index.ts"],
       "@taskly/dashboard-ui": ["libs/dashboard/ui/src/index.ts"],
+      "@taskly/notification-smart": [
+        "libs/activity-center/notification/smart/src/index.ts"
+      ],
+      "@taskly/notification-ui": [
+        "libs/activity-center/notification/ui/src/index.ts"
+      ],
       "@taskly/shared": ["libs/shared/src/index.ts"],
       "@taskly/task-calendar-smart": [
         "libs/task-workflow/task-calendar/smart/src/index.ts"
