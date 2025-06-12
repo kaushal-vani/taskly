@@ -14,12 +14,12 @@ const sampleTasks: Task[] = [
     id: 'past-1',
     title: 'Fix production bug',
     dueDate: addDays(today, -5),
-    status: 'done',
+    status: 'in-progress',
   },
   {
     id: 'past-2',
     title: 'Code review',
-    dueDate: addDays(today, -3),
+    dueDate: addDays(today, -1),
     status: 'in-progress',
   },
 

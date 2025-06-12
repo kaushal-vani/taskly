@@ -32,10 +32,10 @@ export class DueDateIndicatorComponent implements OnChanges {
       this.label = 'Tomorrow';
     } else if (diff < 0) {
       this.status = 'overdue';
-      this.label = `Overdue by ${Math.abs(diff)} day${Math.abs(diff) > 1 ? 's' : ''}`;
+      this.label = `Overdue`;
     } else {
       this.status = 'upcoming';
-      this.label = `In ${diff} day${diff > 1 ? 's' : ''}`;
+      this.label = `Upcoming`;
     }
   }
 }

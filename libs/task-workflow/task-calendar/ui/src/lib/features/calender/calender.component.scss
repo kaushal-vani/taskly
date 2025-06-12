@@ -1,3 +1,10 @@
+.calendar-wrapper {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
 .calendar {
   max-width: 100%;
   font-family: 'Inter', sans-serif;
@@ -65,8 +72,8 @@
 
     span.date-number {
       position: absolute;
-      top: 6px;
-      right: 8px;
+      top: 10px;
+      right: 12px;
       font-weight: 600;
       font-size: 0.75rem;
       color: #4b5563;
