@@ -39,6 +39,12 @@
       ],
       "@taskly/user-profile-preferences-ui": [
         "libs/user-profile/preferences/ui/src/index.ts"
+      ],
+      "@taskly/user-profile-settings-smart": [
+        "libs/user-profile/settings/smart/src/index.ts"
+      ],
+      "@taskly/user-profile-settings-ui": [
+        "libs/user-profile/settings/ui/src/index.ts"
       ]
     }
   },
