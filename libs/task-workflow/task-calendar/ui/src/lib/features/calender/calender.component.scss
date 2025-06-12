@@ -1,0 +1,93 @@
+.calendar {
+  max-width: 100%;
+  font-family: 'Inter', sans-serif;
+  user-select: none;
+
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+
+    button {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    padding: 0 1rem;
+  }
+
+  .calendar-day {
+    text-align: center;
+    font-weight: 600;
+    padding: 8px 0;
+    background: #f3f4f6;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+
+  .calendar-cell {
+    position: relative;
+    height: 90px;
+    background: #f9fafb;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    padding: 6px;
+    text-align: left;
+    font-size: 0.85rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &.today {
+      border: 2px solid #38bdf8;
+    }
+
+    &.empty {
+      background: transparent;
+      border: none;
+    }
+
+    &:hover {
+      background-color: #e5f6fd;
+    }
+
+    span.date-number {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: #4b5563;
+    }
+
+    .task-badge {
+      margin-top: auto;
+      max-height: 65px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 0.7rem;
+      color: #374151;
+      padding-right: 2px;
+
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
