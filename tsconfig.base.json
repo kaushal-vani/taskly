@@ -33,6 +33,12 @@
       ],
       "@taskly/task-todo-list-ui": [
         "libs/task-workflow/task-todo-list/ui/src/index.ts"
+      ],
+      "@taskly/user-profile-preferences-smart": [
+        "libs/user-profile/preferences/smart/src/index.ts"
+      ],
+      "@taskly/user-profile-preferences-ui": [
+        "libs/user-profile/preferences/ui/src/index.ts"
       ]
     }
   },
