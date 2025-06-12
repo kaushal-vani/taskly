@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@taskly/smart": ["libs/task-workflow/task-todo-list/smart/src/index.ts"]
+      "@taskly/smart": ["libs/task-workflow/task-todo-list/smart/src/index.ts"],
+      "@taskly/ui": ["libs/task-workflow/task-todo-list/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
