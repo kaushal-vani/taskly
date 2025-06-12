@@ -1,0 +1,19 @@
+:root {
+  --badge-font-size: 12px;
+  --badge-font-weight: 500;
+  --badge-padding: 2px 8px;
+  --badge-radius: 12px;
+
+  --circle-size: 10px;
+  --gap-small: 4px;
+
+  --color-todo: #9e9e9e;
+  --color-in-progress: #1976d2;
+  --color-blocked: #d32f2f;
+  --color-completed: #388e3c;
+
+  --priority-low: #4caf50;
+  --priority-medium: #ffbb00;
+  --priority-high: #ff9800;
+  --priority-very-high: #f44336;
+}
