@@ -15,6 +15,18 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@taskly/task-calendar-smart": [
+        "libs/task-workflow/task-calendar/smart/src/index.ts"
+      ],
+      "@taskly/task-calendar-ui": [
+        "libs/task-workflow/task-calendar/ui/src/index.ts"
+      ],
+      "@taskly/task-kanban-smart": [
+        "libs/task-workflow/task-kanban/smart/src/index.ts"
+      ],
+      "@taskly/task-kanban-ui": [
+        "libs/task-workflow/task-kanban/ui/src/index.ts"
+      ],
       "@taskly/task-todo-list-smart": [
         "libs/task-workflow/task-todo-list/smart/src/index.ts"
       ],
