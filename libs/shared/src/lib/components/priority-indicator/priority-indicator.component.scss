@@ -1,0 +1,11 @@
+.priority-indicator {
+  display: flex;
+  gap: 4px;
+
+  .circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+}
