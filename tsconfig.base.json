@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@taskly/shared": ["libs/shared/src/index.ts"],
       "@taskly/task-calendar-smart": [
         "libs/task-workflow/task-calendar/smart/src/index.ts"
       ],
