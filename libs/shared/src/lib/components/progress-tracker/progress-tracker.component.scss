@@ -1,0 +1,36 @@
+.circular-tracker-container {
+  display: flex;
+  gap: var(--spacing-sm, 12px);
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.circular-item {
+  text-align: center;
+
+  .label {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #444;
+    font-weight: 500;
+  }
+
+  .circular-chart {
+    width: 64px;
+    height: 64px;
+    transform: rotate(-180deg); // Start from top
+  }
+
+  .bg {
+    fill: none;
+    stroke: #e6e6e6;
+    stroke-width: 3.8;
+  }
+
+  .circle {
+    fill: none;
+    stroke-width: 3.8;
+    stroke-linecap: round;
+    transition: stroke-dasharray 0.3s ease, stroke 0.3s ease;
+  }
+}
