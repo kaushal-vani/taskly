@@ -44,8 +44,8 @@ export class LogInComponent {
 
     this.authService.logIn({ email, password }).subscribe({
       next: (res) => {
+        console.log(res.message);
         this.isLoading = false;
-        alert('Login successful!');
         this.router.navigate(['/calendar']); // ✅ Navigate to the calendar or home page
       },
       error: (err) => {

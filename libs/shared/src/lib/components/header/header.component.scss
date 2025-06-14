@@ -43,4 +43,23 @@
       font-size: 1.3rem;
     }
   }
+
+  // 🔻 ADD THIS FOR UNAUTHENTICATED VIEW
+  .unauth-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    img {
+      height: 42px;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+  }
 }

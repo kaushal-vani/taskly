@@ -1,16 +1,29 @@
 <header class="taskly-header">
-  <div class="left-section">
-    <span class="logo">Taskly</span>
+  <!-- If NOT logged in -->
+  <div *ngIf="!isLoggedIn" class="unauth-header">
+    <img src="assets/taskly.png" alt="Taskly Logo" height="48" />
+    <span class="logo-text">Taskly</span>
   </div>
-  <div class="right-section">
-    <button class="add-task-btn">
-      <img src="add-task.png" alt="user" height="16px">
-    </button>
-    <button class="icon-btn" title="Notifications">
-      <img src="user.png" alt="user" height="16px">
-    </button>
-    <button class="icon-btn profile-btn" title="Profile">
-      <img src="user.png" alt="user" height="16px">
-    </button>
-  </div>
+
+  <!-- If Logged in -->
+  <ng-container *ngIf="isLoggedIn">
+    <div class="left-section">
+      <span>
+        <img src="assets/taskly.png" alt="Taskly Logo" height="36px" />
+      </span>
+      <span class="logo">Taskly</span>
+    </div>
+
+    <div class="right-section">
+      <button class="add-task-btn">
+        <img src="assets/add_task.png" alt="Add Task" height="24px" />
+      </button>
+      <button class="icon-btn" title="Notifications">
+        <img src="assets/notification.png" alt="Notifications" height="24" />
+      </button>
+      <button class="icon-btn profile-btn" title="Profile">
+        <img src="assets/user.png" alt="User" height="30" />
+      </button>
+    </div>
+  </ng-container>
 </header>

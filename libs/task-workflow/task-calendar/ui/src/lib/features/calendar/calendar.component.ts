@@ -13,12 +13,12 @@ import { Task, TaskService } from '@taskly/shared';
 @Component({
   selector: 'lib-calendar',
   standalone: true,
-  imports: [CommonModule,CalendarDayComponent],
+  imports: [CommonModule, CalendarDayComponent],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalenderComponent implements OnInit {
-  taskService = inject(TaskService)
+  taskService = inject(TaskService);
   @Input() tasks: Task[] = [];
   selectedDate: Date | null = null;
   selectedTasks: Task[] = [];
@@ -28,14 +28,20 @@ export class CalenderComponent implements OnInit {
   calendarDays: (Date | null)[] = [];
   isMobileView = false;
 
-
-  constructor(private cdr: ChangeDetectorRef) {
-  }
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.checkViewport();
     this.generateCalendarDays();
-    this.taskService.fetchUserTasks().subscribe((response)=>this.tasks = response.data.tasks )
+
+    this.taskService.fetchUserTasks().subscribe({
+      next: (response) => {
+        this.tasks = response?.data?.tasks || [];
+      },
+      error: (err) => {
+        console.error('Error fetching tasks:', err);
+      },
+    });
   }
 
   @HostListener('window:resize')
@@ -114,8 +120,8 @@ export class CalenderComponent implements OnInit {
 
   onDateClick(date: Date | null) {
     if (!date) return;
-  this.selectedDate = date;
-  this.selectedTasks = this.getTasksForDate(date);
+    this.selectedDate = date;
+    this.selectedTasks = this.getTasksForDate(date);
     console.log('Clicked date:', date);
   }
 

@@ -42,7 +42,8 @@
                   formControlName="password"
                 />
                 <button type="button" (click)="togglePasswordVisibility()">
-                  👁️
+                  <img src="assets/visibility.png" alt="visible"  *ngIf="showPassword"/>
+                  <img src="assets/visibility_off.png" alt="visible_off"  *ngIf="!showPassword"/>
                 </button>
               </div>
               <small
