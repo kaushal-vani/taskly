@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
   styleUrl: './log-in.component.scss',
 })
 export class LogInComponent {
+  @Output() switchView = new EventEmitter<'signup'>();
   loginForm: FormGroup;
   isLoading = false;
   errorMessage = '';

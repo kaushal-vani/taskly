@@ -5,11 +5,16 @@
         <div class="signup-card-body">
           <h2 class="title">Sign Up</h2>
           <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-            
             <div class="form-group">
               <label for="name">Full Name</label>
               <input type="text" id="name" formControlName="name" />
-              <small class="error" *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched">
+              <small
+                class="error"
+                *ngIf="
+                  signupForm.get('name')?.invalid &&
+                  signupForm.get('name')?.touched
+                "
+              >
                 Name is required.
               </small>
             </div>
@@ -17,7 +22,13 @@
             <div class="form-group">
               <label for="email">Email address</label>
               <input type="email" id="email" formControlName="email" />
-              <small class="error" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+              <small
+                class="error"
+                *ngIf="
+                  signupForm.get('email')?.invalid &&
+                  signupForm.get('email')?.touched
+                "
+              >
                 Enter a valid email.
               </small>
             </div>
@@ -25,12 +36,24 @@
             <div class="form-group">
               <label for="password">Password</label>
               <div class="input-group">
-                <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password" />
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  id="password"
+                  formControlName="password"
+                />
                 <button type="button" (click)="togglePasswordVisibility()">
-                  <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                  <i
+                    [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
+                  ></i>
                 </button>
               </div>
-              <small class="error" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+              <small
+                class="error"
+                *ngIf="
+                  signupForm.get('password')?.invalid &&
+                  signupForm.get('password')?.touched
+                "
+              >
                 Password must be at least 6 characters long.
               </small>
             </div>
@@ -45,7 +68,15 @@
           </form>
 
           <p class="redirect-msg">
-            <a routerLink="/log-in">Already have an account? Login</a>
+            <a
+              role="button"
+              tabindex="0"
+              (click)="switchView.emit('login')"
+              (keydown.enter)="switchView.emit('login')"
+              (keydown.space)="switchView.emit('login')"
+              class="redirect-link"
+              >Already have an account? Login</a
+            >
           </p>
         </div>
       </div>

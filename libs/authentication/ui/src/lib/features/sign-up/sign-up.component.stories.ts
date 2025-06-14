@@ -3,7 +3,7 @@ import { SignUpComponent } from './sign-up.component';
 
 
 const meta: Meta<SignUpComponent> = {
-  title: 'Authentication/SignUpComponent',
+  title: 'Authentication/Sign-Up Page',
   component: SignUpComponent,
   tags: ['autodocs'],
 };

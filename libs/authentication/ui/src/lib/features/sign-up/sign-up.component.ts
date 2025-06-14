@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
   styleUrl: './sign-up.component.scss',
 })
 export class SignUpComponent {
+  @Output() switchView = new EventEmitter<'login'>();
   signupForm: FormGroup;
   showPassword = false;
   errorMessage = '';
