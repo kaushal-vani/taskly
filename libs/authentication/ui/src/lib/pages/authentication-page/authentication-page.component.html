@@ -1,11 +1,11 @@
 <ng-container [ngSwitch]="currentView">
   <lib-log-in
-    *ngSwitchCase="'login'"
+    *ngSwitchCase="AUTH_VIEWS.LOGIN"
     (switchView)="switchTo($event)"
   ></lib-log-in>
 
   <lib-sign-up
-    *ngSwitchCase="'signup'"
+    *ngSwitchCase="AUTH_VIEWS.SIGNUP"
     (switchView)="switchTo($event)"
   ></lib-sign-up>
 </ng-container>

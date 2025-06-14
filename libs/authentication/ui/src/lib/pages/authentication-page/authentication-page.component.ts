@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LogInComponent } from '../../features/log-in/log-in.component';
 import { SignUpComponent } from '../../features/sign-up/sign-up.component';
+import { AUTH_VIEWS, AuthView } from '@taskly/shared';
 
 @Component({
   selector: 'lib-authentication-page',
@@ -10,9 +11,10 @@ import { SignUpComponent } from '../../features/sign-up/sign-up.component';
   styleUrl: './authentication-page.component.scss',
 })
 export class AuthenticationPageComponent {
-  currentView: 'login' | 'signup' = 'login';
+  readonly AUTH_VIEWS = AUTH_VIEWS;
+  currentView: AuthView = AUTH_VIEWS.LOGIN;
 
-  switchTo(view: 'login' | 'signup'):void {
+  switchTo(view: AuthView):void {
     this.currentView = view;
   }
 }
