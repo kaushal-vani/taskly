@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CalenderDayComponent } from './calender-day.component';
+import { CalenderDayComponent } from './calendar-day.component';
 
 describe('CalenderDayComponent', () => {
   let component: CalenderDayComponent;

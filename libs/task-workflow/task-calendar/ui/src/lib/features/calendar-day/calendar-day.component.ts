@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Task } from '../calender/calender.component';
+import { Task } from '../calendar/calendar.component';
 
 @Component({
   selector: 'lib-calender-day',
   imports: [CommonModule],
-  templateUrl: './calender-day.component.html',
-  styleUrl: './calender-day.component.scss',
+  templateUrl: './calendar-day.component.html',
+  styleUrl: './calendar-day.component.scss',
 })
-export class CalenderDayComponent {
+export class CalendarDayComponent {
   @Input() selectedDate!: Date;
   @Input() tasksForDate: Task[] = [];
 }

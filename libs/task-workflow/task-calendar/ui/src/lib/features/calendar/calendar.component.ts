@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CalenderDayComponent } from '../calender-day/calender-day.component';
+import { CalendarDayComponent } from '../calendar-day/calendar-day.component';
 
 export interface Task {
   id: string;
@@ -25,9 +25,9 @@ export interface Task {
 @Component({
   selector: 'lib-calendar',
   standalone: true,
-  imports: [CommonModule,CalenderDayComponent],
-  templateUrl: './calender.component.html',
-  styleUrls: ['./calender.component.scss'],
+  imports: [CommonModule,CalendarDayComponent],
+  templateUrl: './calendar.component.html',
+  styleUrls: ['./calendar.component.scss'],
 })
 export class CalenderComponent implements OnInit {
   @Input() tasks: Task[] = [];

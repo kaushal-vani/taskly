@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/angular';
-import { CalenderComponent, Task } from './calender.component';
+import { CalenderComponent, Task } from './calendar.component';
 
 const meta: Meta<CalenderComponent> = {
   title: 'Calendar/CalenderComponent',
