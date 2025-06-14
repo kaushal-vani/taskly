@@ -1,0 +1,1 @@
+export type Status = 'todo' | 'in-progress' | 'blocked' | 'completed';

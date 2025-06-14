@@ -7,20 +7,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarDayComponent } from '../calendar-day/calendar-day.component';
-
-export interface Task {
-  id: string;
-  title: string;
-  description?: string;
-  dueDate: Date;
-  status: 'todo' | 'in-progress' | 'done';
-  priority?: 'low' | 'medium' | 'high';
-  tags?: string[];
-  createdAt?: Date;
-  updatedAt?: Date;
-  time?: string; // e.g., '2:30 - 4:00 PM'
-  color?: string;
-}
+import { Task } from '@taskly/shared';
 
 @Component({
   selector: 'lib-calendar',
@@ -107,7 +94,7 @@ export class CalenderComponent implements OnInit {
   hasOverdueTasks(date: Date): boolean {
     const today = new Date();
     return this.getTasksForDate(date).some(
-      (task) => new Date(task.dueDate) < today && task.status !== 'done'
+      (task) => new Date(task.dueDate) < today && task.status !== 'completed'
     );
   }
 
