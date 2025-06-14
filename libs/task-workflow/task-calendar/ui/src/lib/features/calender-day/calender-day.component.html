@@ -1,0 +1,9 @@
+<h3>Tasks on {{ selectedDate | date: 'fullDate' }}</h3>
+<ul *ngIf="tasksForDate.length; else noTasks">
+  <li *ngFor="let task of tasksForDate">
+    {{ task.title }} ({{ task.status }})
+  </li>
+</ul>
+<ng-template #noTasks>
+  <p>No tasks for this day.</p>
+</ng-template>

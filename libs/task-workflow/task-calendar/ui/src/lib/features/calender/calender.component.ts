@@ -6,6 +6,7 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CalenderDayComponent } from '../calender-day/calender-day.component';
 
 export interface Task {
   id: string;
@@ -24,13 +25,14 @@ export interface Task {
 @Component({
   selector: 'lib-calendar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,CalenderDayComponent],
   templateUrl: './calender.component.html',
   styleUrls: ['./calender.component.scss'],
 })
 export class CalenderComponent implements OnInit {
   @Input() tasks: Task[] = [];
-
+  selectedDate: Date | null = null;
+  selectedTasks: Task[] = [];
   currentMonth: Date = new Date();
   today: Date = new Date();
   weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -121,6 +123,8 @@ export class CalenderComponent implements OnInit {
 
   onDateClick(date: Date | null) {
     if (!date) return;
+  this.selectedDate = date;
+  this.selectedTasks = this.getTasksForDate(date);
     console.log('Clicked date:', date);
   }
 
