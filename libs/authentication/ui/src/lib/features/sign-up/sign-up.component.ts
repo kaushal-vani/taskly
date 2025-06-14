@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { AuthService, SignUpRequest } from '@taskly/shared';
 
 @Component({
   selector: 'lib-sign-up',
@@ -15,7 +16,7 @@ export class SignUpComponent {
   errorMessage = '';
   isLoading = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.signupForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -34,15 +35,22 @@ export class SignUpComponent {
     }
 
     this.isLoading = true;
+    this.errorMessage = '';
 
-    const { name, email, password } = this.signupForm.value;
-    console.log('Sign-up request:', { name, email, password });
+    const payload: SignUpRequest = this.signupForm.value;
 
-    // Simulate API call
-    setTimeout(() => {
-      this.isLoading = false;
-      alert('User signed up successfully!');
-      this.signupForm.reset();
-    }, 1500);
+    this.authService.signUp(payload).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        this.signupForm.reset();
+        this.switchView.emit('login');
+        console.log(response)
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.errorMessage = err?.error?.message || 'Something went wrong!';
+        console.error('Sign-up error:', err);
+      },
+    });
   }
 }

@@ -4,10 +4,11 @@ import {
   OnInit,
   HostListener,
   ChangeDetectorRef,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarDayComponent } from '../calendar-day/calendar-day.component';
-import { Task } from '@taskly/shared';
+import { Task, TaskService } from '@taskly/shared';
 
 @Component({
   selector: 'lib-calendar',
@@ -17,6 +18,7 @@ import { Task } from '@taskly/shared';
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalenderComponent implements OnInit {
+  taskService = inject(TaskService)
   @Input() tasks: Task[] = [];
   selectedDate: Date | null = null;
   selectedTasks: Task[] = [];
@@ -24,14 +26,16 @@ export class CalenderComponent implements OnInit {
   today: Date = new Date();
   weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   calendarDays: (Date | null)[] = [];
-
   isMobileView = false;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+
+  constructor(private cdr: ChangeDetectorRef) {
+  }
 
   ngOnInit(): void {
     this.checkViewport();
     this.generateCalendarDays();
+    this.taskService.fetchUserTasks().subscribe((response)=>this.tasks = response.data.tasks )
   }
 
   @HostListener('window:resize')

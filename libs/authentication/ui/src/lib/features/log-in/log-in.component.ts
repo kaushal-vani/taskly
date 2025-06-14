@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '@taskly/shared';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,12 +13,14 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 })
 export class LogInComponent {
   @Output() switchView = new EventEmitter<'signup'>();
+  authService = inject(AuthService);
+  router = inject(Router);
   loginForm: FormGroup;
   isLoading = false;
   errorMessage = '';
   showPassword = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
@@ -27,21 +31,27 @@ export class LogInComponent {
     this.showPassword = !this.showPassword;
   }
 
-  onSubmit(): void {
-    if (this.loginForm.invalid) return;
+ onSubmit(): void {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
 
     this.isLoading = true;
     this.errorMessage = '';
 
-    // Mock login logic
-    setTimeout(() => {
-      const { email, password } = this.loginForm.value;
-      if (email === 'test@example.com' && password === 'password') {
-        console.log('Login successful');
-      } else {
-        this.errorMessage = 'Invalid email or password.';
-      }
-      this.isLoading = false;
-    }, 1500);
+    const { email, password } = this.loginForm.value;
+
+    this.authService.logIn({ email, password }).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        alert('Login successful!');
+        this.router.navigate(['/calendar']); // ✅ Navigate to the calendar or home page
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.errorMessage = err?.error?.message || 'Login failed. Please try again.';
+      },
+    });
   }
 }

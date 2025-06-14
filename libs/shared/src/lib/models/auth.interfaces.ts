@@ -1,4 +1,3 @@
-// libs/authentication/data-access/src/lib/auth.model.ts
 
 // Request Types
 export interface SignUpRequest {

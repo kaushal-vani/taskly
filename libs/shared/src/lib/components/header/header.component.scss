@@ -17,7 +17,6 @@
       font-size: 1.25rem;
       color: #333;
     }
-
   }
 
   .right-section {
@@ -26,11 +25,9 @@
     gap: 1rem;
 
     .add-task-btn {
-      background-color: #0052cc;
-      color: #fff;
-      padding: 0.4rem 0.8rem;
+      background: none;
       border: none;
-      border-radius: 4px;
+      color: #fff;
       cursor: pointer;
       font-weight: 500;
     }
