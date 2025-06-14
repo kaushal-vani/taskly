@@ -1,2 +1,2 @@
 export * from './task.interfaces'
-export * from './user.interfaces'
+export * from './auth.interfaces'

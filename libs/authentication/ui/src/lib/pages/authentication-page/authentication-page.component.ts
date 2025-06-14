@@ -9,6 +9,7 @@ import { AUTH_VIEWS, AuthView } from '@taskly/shared';
   imports: [CommonModule, LogInComponent,SignUpComponent],
   templateUrl: './authentication-page.component.html',
   styleUrl: './authentication-page.component.scss',
+  standalone:true
 })
 export class AuthenticationPageComponent {
   readonly AUTH_VIEWS = AUTH_VIEWS;

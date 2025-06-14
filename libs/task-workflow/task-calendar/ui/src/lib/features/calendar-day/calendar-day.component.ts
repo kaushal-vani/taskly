@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Task } from '../calendar/calendar.component';
+import { Task } from '@taskly/shared';
 
 @Component({
   selector: 'lib-calender-day',

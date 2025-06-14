@@ -70,7 +70,7 @@
                 <div class="task-content">
                   <span class="task-title">{{ task.title }}</span>
                   <span
-                    *ngIf="!isToday(day) && task.dueDate < today && task.status !== 'done'"
+                    *ngIf="!isToday(day) && task.dueDate < today && task.status !== 'completed'"
                     class="overdue-label"
                     >Overdue</span
                   >
