@@ -6,47 +6,77 @@
       <button (click)="nextMonth()" aria-label="Next month">❯</button>
     </div>
 
-    <!-- Week Labels -->
-    <div class="calendar-grid">
-      <div *ngFor="let day of weekDays" class="calendar-day">
-        {{ day }}
+    <!-- Desktop/Tablet Grid View -->
+    <div class="calendar-scroll-wrapper" *ngIf="!isMobileView">
+      <div class="calendar-grid">
+        <div *ngFor="let day of weekDays" class="calendar-day">
+          {{ day }}
+        </div>
+      </div>
+
+      <div class="calendar-grid">
+<div
+  *ngFor="let day of calendarDays"
+  class="calendar-cell"
+  [ngClass]="{ today: isToday(day), empty: !day }"
+  (click)="onDateClick(day)"
+  (keydown.enter)="onDateClick(day)"
+  [attr.aria-label]="day ? getAriaLabel(day) : null"
+  tabindex="{{ day ? 0 : -1 }}"
+>
+  <ng-container *ngIf="day">
+    <div class="date-meta">
+      <span
+        *ngIf="hasOverdueTasks(day) && !isToday(day)"
+        class="overdue-label"
+      >
+        Overdue
+      </span>
+      <span class="date-number">{{ day.getDate() }}</span>
+    </div>
+
+    <div class="task-badge">
+      <span *ngFor="let task of getTasksForDate(day).slice(0, 2)">
+        • {{ task.title }}
+      </span>
+      <span *ngIf="getTasksForDate(day).length > 2">
+        +{{ getTasksForDate(day).length - 2 }} more
+      </span>
+    </div>
+  </ng-container>
+</div>
       </div>
     </div>
 
-    <!-- Calendar Cells -->
-    <div class="calendar-grid">
+    <!-- Mobile View List -->
+    <div class="calendar-mobile" *ngIf="isMobileView">
       <div
+        class="calendar-mobile-item"
         *ngFor="let day of calendarDays"
-        class="calendar-cell"
-        [ngClass]="{
-          'today': isToday(day),
-          'overdue': day && isOverdueDate(day),
-          'empty': !day
-        }"
-        tabindex="{{ day ? 0 : -1 }}"
-        role="button"
-        [attr.aria-label]="day ? getAriaLabel(day) : null"
-        (click)="onDateClick(day)"
-        (keydown.enter)="onDateClick(day)"
+        [ngClass]="{ today: isToday(day), empty: !day }"
       >
         <ng-container *ngIf="day">
-          <div class="date-header">
-            <span class="date-number">{{ day.getDate() }}</span>
-
-            <lib-due-date-indicator
-              *ngIf="hasOverdueTasks(day)"
-              [dueDate]="day"
-              class="small-indicator"
-            ></lib-due-date-indicator>
-          </div>
-
-          <div class="task-badge">
-            <span *ngFor="let task of getTasksForDate(day).slice(0, 2)">
-              • {{ task.title }}
-            </span>
-            <span *ngIf="getTasksForDate(day).length > 2">
-              +{{ getTasksForDate(day).length - 2 }} more
-            </span>
+          <div class="mobile-day-wrapper">
+            <div class="date-column">
+              <div class="date-number">{{ day | date: 'dd' }}</div>
+              <div class="day-name">{{ day | date: 'EEE' }}</div>
+            </div>
+            <div class="event-column">
+              <div
+                class="task-box"
+                *ngFor="let task of getTasksForDate(day)"
+                [ngStyle]="{ backgroundColor: task.color || '#f3f4f6' }"
+              >
+                <div class="task-content">
+                  <span class="task-title">{{ task.title }}</span>
+                  <span
+                    *ngIf="!isToday(day) && task.dueDate < today && task.status !== 'done'"
+                    class="overdue-label"
+                    >Overdue</span
+                  >
+                </div>
+              </div>
+            </div>
           </div>
         </ng-container>
       </div>

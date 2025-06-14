@@ -1,110 +1,133 @@
+import {
+  Component,
+  Input,
+  OnInit,
+  HostListener,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { DueDateIndicatorComponent } from '@taskly/shared';
 
 export interface Task {
   id: string;
   title: string;
+  description?: string;
   dueDate: Date;
   status: 'todo' | 'in-progress' | 'done';
+  priority?: 'low' | 'medium' | 'high';
+  tags?: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
+  time?: string; // e.g., '2:30 - 4:00 PM'
+  color?: string;
 }
 
 @Component({
   selector: 'lib-calendar',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './calender.component.html',
   styleUrls: ['./calender.component.scss'],
-  standalone: true,
-  imports: [CommonModule, DueDateIndicatorComponent]
 })
 export class CalenderComponent implements OnInit {
   @Input() tasks: Task[] = [];
 
-  currentMonth = new Date();
-  weekDays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  currentMonth: Date = new Date();
+  today: Date = new Date();
+  weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   calendarDays: (Date | null)[] = [];
 
+  isMobileView = false;
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
   ngOnInit(): void {
-    this.generateCalendar();
+    this.checkViewport();
+    this.generateCalendarDays();
   }
 
-  generateCalendar(): void {
-    const start = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), 1);
-    const end = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + 1, 0);
-    const calendar: (Date | null)[] = [];
+  @HostListener('window:resize')
+  onResize() {
+    this.checkViewport();
+  }
 
-    const startDay = start.getDay();
+  private checkViewport() {
+    this.isMobileView = window.innerWidth <= 868;
+    this.cdr.detectChanges();
+  }
+
+  prevMonth(): void {
+    this.currentMonth = new Date(
+      this.currentMonth.getFullYear(),
+      this.currentMonth.getMonth() - 1
+    );
+    this.generateCalendarDays();
+  }
+
+  nextMonth(): void {
+    this.currentMonth = new Date(
+      this.currentMonth.getFullYear(),
+      this.currentMonth.getMonth() + 1
+    );
+    this.generateCalendarDays();
+  }
+
+  generateCalendarDays(): void {
+    const year = this.currentMonth.getFullYear();
+    const month = this.currentMonth.getMonth();
+
+    const startOfMonth = new Date(year, month, 1);
+    const endOfMonth = new Date(year, month + 1, 0);
+
+    const startDay = startOfMonth.getDay();
+    const totalDays = endOfMonth.getDate();
+
+    const days: (Date | null)[] = [];
+
     for (let i = 0; i < startDay; i++) {
-      calendar.push(null);
+      days.push(null);
     }
 
-    for (let d = 1; d <= end.getDate(); d++) {
-      calendar.push(new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), d));
+    for (let i = 1; i <= totalDays; i++) {
+      days.push(new Date(year, month, i));
     }
 
-    this.calendarDays = calendar;
-  }
-
-  isToday(date: Date | null): boolean {
-    if (!date) return false;
-    const today = this.stripTime(new Date());
-    const checkDate = this.stripTime(date);
-    return today.getTime() === checkDate.getTime();
-  }
-
-  isOverdueDate(date: Date): boolean {
-    const cellDate = this.stripTime(date);
-    const today = this.stripTime(new Date());
-
-    if (cellDate >= today) return false;
-
-    return this.tasks.some(task => {
-      const taskDate = this.stripTime(new Date(task.dueDate));
-      return (
-        taskDate.getTime() === cellDate.getTime() &&
-        task.status !== 'done' &&
-        taskDate < today
-      );
-    });
-  }
-
-  getAriaLabel(date: Date): string {
-    return `Tasks for ${date.toDateString()}`;
+    this.calendarDays = days;
   }
 
   getTasksForDate(date: Date): Task[] {
-    const cellDate = this.stripTime(date);
     return this.tasks.filter(
-      task => this.stripTime(new Date(task.dueDate)).getTime() === cellDate.getTime()
+      (task) =>
+        task.dueDate &&
+        new Date(task.dueDate).toDateString() === date.toDateString()
     );
   }
 
   hasOverdueTasks(date: Date): boolean {
-    return this.isOverdueDate(date);
+    const today = new Date();
+    return this.getTasksForDate(date).some(
+      (task) => new Date(task.dueDate) < today && task.status !== 'done'
+    );
   }
 
-  isOverdue(task: Task): boolean {
-    const today = this.stripTime(new Date());
-    const due = this.stripTime(new Date(task.dueDate));
-    return task.status !== 'done' && due < today;
+  isToday(date: Date | null): boolean {
+    if (!date) return false;
+    const today = new Date();
+    return (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    );
   }
 
-  stripTime(date: Date): Date {
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  onDateClick(date: Date | null) {
+    if (!date) return;
+    console.log('Clicked date:', date);
   }
 
-  onDateClick(date: Date | null): void {
-    if (date) {
-      console.log('Date clicked:', date);
-    }
-  }
-
-  prevMonth(): void {
-    this.currentMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() - 1, 1);
-    this.generateCalendar();
-  }
-
-  nextMonth(): void {
-    this.currentMonth = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + 1, 1);
-    this.generateCalendar();
+  getAriaLabel(date: Date): string {
+    const taskCount = this.getTasksForDate(date).length;
+    return `${date.toDateString()}, ${taskCount} task${
+      taskCount !== 1 ? 's' : ''
+    }`;
   }
 }
