@@ -1,1 +1,21 @@
-<p>calendar-page works!</p>
+<div class="calendar-page-container">
+  <div class="left-column">
+<lib-calendar
+      (dateSelected)="onDateSelected($event)"
+      (tasksForDateSelected)="onTasksForDateSelected($event)"
+    ></lib-calendar>
+  </div>
+
+  <div class="right-column">
+    <lib-progress-tracker
+      [progressByTimeframe]="progressByTimeframe"
+    ></lib-progress-tracker>
+
+    <lib-calender-day
+      *ngIf="selectedDate"
+      [selectedDate]="selectedDate"
+      [tasksForDate]="selectedTasks"
+    ></lib-calender-day>
+
+  </div>
+</div>

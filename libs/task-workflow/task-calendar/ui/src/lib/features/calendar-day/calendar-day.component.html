@@ -1,9 +1,38 @@
-<h3>Tasks on {{ selectedDate | date: 'fullDate' }}</h3>
-<ul *ngIf="tasksForDate.length; else noTasks">
-  <li *ngFor="let task of tasksForDate">
-    {{ task.title }} ({{ task.status }})
+<div class="calendar-day">
+  <div class="header">
+    <div class="main-date">{{ selectedDate | date: 'MMMM d, y' }}</div>
+    <div class="day-name">{{ selectedDate | date: 'EEEE' }}</div>
+  </div>
+
+<ul class="task-list" *ngIf="tasksForDate.length; else noTasks">
+  <li 
+    class="task-item" 
+    *ngFor="let task of tasksForDate"
+  >
+    <div class="task-left">
+      <span class="task-title">{{ task.title }}</span>
+      <lib-priority-indicator [level]="task.priority || 'low'"></lib-priority-indicator>
+    </div>
+    <span
+      class="task-status"
+      [ngClass]="{
+        completed: task.status === 'completed',
+        pending: task.status === 'todo',
+        overdue: isOverdue(task)
+      }"
+    >
+      {{ task.status }}
+    </span>
   </li>
 </ul>
-<ng-template #noTasks>
-  <p>No tasks for this day.</p>
-</ng-template>
+
+  <ng-template #noTasks>
+    <div class="no-tasks">
+      <p>No tasks for this day.</p>
+      <button class="add-task-button" (click)="onAddTask()">
+        <img src="assets/task_add.png" alt="Add Task Icon" class="icon" />
+        Add Task
+      </button>
+    </div>
+  </ng-template>
+</div>

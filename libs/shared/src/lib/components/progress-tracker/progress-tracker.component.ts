@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-interface TimeframeProgress {
+export interface TimeframeProgress {
   label: 'day' | 'week' | 'month' | 'overall';
   value: number; // 0–100
 }

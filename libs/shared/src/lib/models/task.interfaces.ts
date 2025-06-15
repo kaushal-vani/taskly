@@ -8,7 +8,7 @@ export interface Task {
   dueDate: Date;
   id: string;
   notificationEnabled?: boolean;
-  priority?: Priority
+  priority: Priority
   reminderAt?: Date; // Specific time to notify the user
   status: Status;
   subTask: SubTask[];

@@ -1,25 +1,30 @@
 import {
   Component,
   Input,
+  Output,
+  EventEmitter,
   OnInit,
   HostListener,
   ChangeDetectorRef,
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CalendarDayComponent } from '../calendar-day/calendar-day.component';
 import { Task, TaskService } from '@taskly/shared';
 
 @Component({
   selector: 'lib-calendar',
   standalone: true,
-  imports: [CommonModule, CalendarDayComponent],
+  imports: [CommonModule],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalenderComponent implements OnInit {
   taskService = inject(TaskService);
   @Input() tasks: Task[] = [];
+
+  @Output() dateSelected = new EventEmitter<Date>();
+  @Output() tasksForDateSelected = new EventEmitter<Task[]>();
+
   selectedDate: Date | null = null;
   selectedTasks: Task[] = [];
   currentMonth: Date = new Date();
@@ -122,6 +127,9 @@ export class CalenderComponent implements OnInit {
     if (!date) return;
     this.selectedDate = date;
     this.selectedTasks = this.getTasksForDate(date);
+    // Emit selected date and tasks
+    this.dateSelected.emit(this.selectedDate);
+    this.tasksForDateSelected.emit(this.selectedTasks);
     console.log('Clicked date:', date);
   }
 

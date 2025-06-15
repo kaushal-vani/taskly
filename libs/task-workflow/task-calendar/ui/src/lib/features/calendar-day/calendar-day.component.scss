@@ -1,0 +1,130 @@
+.calendar-day {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  margin-top: 1rem;
+  font-family: 'Inter', sans-serif;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+
+    .date {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .day {
+      font-size: 1rem;
+      color: #666;
+      font-weight: 500;
+    }
+  }
+
+  .task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .task-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0.75rem 1rem;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      background: #fafafa;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      .task-left {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        max-width: 70%;
+      }
+
+      .task-title {
+        font-weight: 500;
+        color: #444;
+        font-size: 1rem;
+        line-height: 1.2;
+        word-break: break-word;
+      }
+
+      lib-priority-indicator {
+        margin-top: 0.2rem;
+        transform: scale(0.95);
+      }
+
+      .task-status {
+        font-size: 0.85rem;
+        padding: 0.3rem 0.6rem;
+        border-radius: 6px;
+        text-transform: capitalize;
+        font-weight: 500;
+        white-space: nowrap;
+        align-self: center;
+      }
+
+      .completed {
+        background-color: #e0f7e9;
+        color: #2e7d32;
+      }
+
+      .pending {
+        background-color: #fff3cd;
+        color: #856404;
+      }
+
+      .overdue {
+        background-color: #fdecea;
+        color: #c62828;
+      }
+    }
+  }
+
+  .no-tasks {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    margin-top: 2rem;
+
+    p {
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+
+    .add-task-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.4rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(12px);
+      color: #007bff;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 123, 255, 0.1);
+
+      img.icon {
+        width: 18px;
+        height: 18px;
+      }
+
+      &:hover {
+        background: rgba(0, 123, 255, 0.1);
+        border-color: #007bff;
+      }
+    }
+  }
+}
