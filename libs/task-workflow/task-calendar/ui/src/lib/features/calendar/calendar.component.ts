@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task, TaskService } from '@taskly/shared';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'lib-calendar',
@@ -20,6 +21,8 @@ import { Task, TaskService } from '@taskly/shared';
 })
 export class CalenderComponent implements OnInit {
   taskService = inject(TaskService);
+  private cdr = inject(ChangeDetectorRef);
+
   @Input() tasks: Task[] = [];
 
   @Output() dateSelected = new EventEmitter<Date>();
@@ -32,21 +35,12 @@ export class CalenderComponent implements OnInit {
   weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   calendarDays: (Date | null)[] = [];
   isMobileView = false;
-
-  constructor(private cdr: ChangeDetectorRef) {}
+  isLoading = true;
 
   ngOnInit(): void {
     this.checkViewport();
     this.generateCalendarDays();
-
-    this.taskService.fetchUserTasks().subscribe({
-      next: (response) => {
-        this.tasks = response?.data?.tasks || [];
-      },
-      error: (err) => {
-        console.error('Error fetching tasks:', err);
-      },
-    });
+    this.fetchTasksFromAPI();
   }
 
   @HostListener('window:resize')
@@ -57,6 +51,21 @@ export class CalenderComponent implements OnInit {
   private checkViewport() {
     this.isMobileView = window.innerWidth <= 868;
     this.cdr.detectChanges();
+  }
+
+  private fetchTasksFromAPI(): void {
+    this.taskService.fetchUserTasks().pipe(take(1)).subscribe({
+      next: (tasks: Task[]) => {
+        this.tasks = tasks;
+        this.isLoading = false;
+        this.cdr.markForCheck();
+      },
+      error: (err) => {
+        console.error('Error fetching tasks:', err);
+        this.isLoading = false;
+        this.cdr.markForCheck();
+      },
+    });
   }
 
   prevMonth(): void {
@@ -81,7 +90,6 @@ export class CalenderComponent implements OnInit {
 
     const startOfMonth = new Date(year, month, 1);
     const endOfMonth = new Date(year, month + 1, 0);
-
     const startDay = startOfMonth.getDay();
     const totalDays = endOfMonth.getDate();
 
@@ -99,17 +107,18 @@ export class CalenderComponent implements OnInit {
   }
 
   getTasksForDate(date: Date): Task[] {
-    return this.tasks.filter(
-      (task) =>
-        task.dueDate &&
-        new Date(task.dueDate).toDateString() === date.toDateString()
-    );
+    return this.tasks.filter((task) => {
+      if (!task.dueDate) return false;
+      return new Date(task.dueDate).toDateString() === date.toDateString();
+    });
   }
 
   hasOverdueTasks(date: Date): boolean {
     const today = new Date();
     return this.getTasksForDate(date).some(
-      (task) => new Date(task.dueDate) < today && task.status !== 'completed'
+      (task) =>
+        new Date(task.dueDate) < today &&
+        task.status.toLowerCase() !== 'completed'
     );
   }
 
@@ -127,10 +136,8 @@ export class CalenderComponent implements OnInit {
     if (!date) return;
     this.selectedDate = date;
     this.selectedTasks = this.getTasksForDate(date);
-    // Emit selected date and tasks
     this.dateSelected.emit(this.selectedDate);
     this.tasksForDateSelected.emit(this.selectedTasks);
-    console.log('Clicked date:', date);
   }
 
   getAriaLabel(date: Date): string {

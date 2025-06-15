@@ -35,6 +35,7 @@ export class CalendarPageComponent implements OnInit {
 
   onTasksForDateSelected(tasks: Task[]) {
     this.selectedTasks = tasks;
+    console.log(this.selectedTasks)
     this.calculateProgress(tasks);
   }
 

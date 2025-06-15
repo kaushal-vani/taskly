@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { AUTH_API } from '../constants';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { getAuthToken } from '../utils';
 import { Task } from '../models';
@@ -10,40 +10,48 @@ import { Task } from '../models';
   providedIn: 'root',
 })
 export class TaskService {
-  http = inject(HttpClient);
-  authservice = inject(AuthService);
+  private http = inject(HttpClient);
+  private authService = inject(AuthService);
 
-  fetchUserTasks(): Observable<any> {
+  private getHeaders(): HttpHeaders {
     const token = getAuthToken();
-    const user = this.authservice.getUser();
-
-    if (!token || !user?._id) {
-      throw new Error('Token or User ID is missing');
+    if (!token) {
+      throw new Error('Missing auth token');
     }
-
-    const headers = new HttpHeaders({
+    return new HttpHeaders({
       Authorization: `Bearer ${token}`,
-    });
-
-    return this.http.get<any>(`${AUTH_API.GET_TASKS}/${user._id}`, {
-      headers,
     });
   }
 
-  createTask(task: Partial<Task>): Observable<any> {
-    const token = getAuthToken();
+  fetchUserTasks(): Observable<Task[]> {
+    const user = this.authService.getUser();
+    if (!user?._id) throw new Error('User ID missing');
 
-    if (!token) {
-      throw new Error('Token is missing');
-    }
+    return this.http
+      .get<{ data: { tasks: Task[] } }>(`${AUTH_API.GET_TASKS}/${user._id}`, {
+        headers: this.getHeaders(),
+      })
+      .pipe(map((response) => response?.data?.tasks || []));
+  }
 
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
+  createTask(payload: Partial<Task>): Observable<Task> {
+    return this.http.post<Task>(AUTH_API.CREATE_TASK, payload, {
+      headers: this.getHeaders(),
     });
+  }
 
-    return this.http.post<any>(AUTH_API.CREATE_TASK, task, {
-      headers,
+  updateTask(taskId: string, payload: Partial<Task>): Observable<Task> {
+    return this.http.patch<Task>(`${AUTH_API.UPDATE_TASK}/${taskId}`, payload, {
+      headers: this.getHeaders(),
     });
+  }
+
+  deleteTask(taskId: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(
+      `${AUTH_API.DELETE_TASK}/${taskId}`,
+      {
+        headers: this.getHeaders(),
+      }
+    );
   }
 }

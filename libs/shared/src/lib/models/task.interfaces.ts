@@ -6,7 +6,7 @@ export interface Task {
   createdAt?: Date;
   description?: string;
   dueDate: Date;
-  id: string;
+  _id: string;
   notificationEnabled?: boolean;
   priority: Priority
   reminderAt?: Date; // Specific time to notify the user
