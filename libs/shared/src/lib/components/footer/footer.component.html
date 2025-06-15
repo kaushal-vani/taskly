@@ -1,1 +1,39 @@
-<p>footer works!</p>
+<footer class="taskly-footer">
+  <!-- Unauthenticated View -->
+  <div *ngIf="!isLoggedIn" class="unauth-footer">
+    <img src="assets/taskly.png" alt="Taskly Logo" class="footer-logo" />
+    <span>Taskly</span>
+  </div>
+
+  <!-- Authenticated View -->
+  <ng-container *ngIf="isLoggedIn">
+    <div class="footer-content">
+      <div class="footer-left">
+        <img src="assets/taskly.png" alt="Taskly Logo" class="footer-logo" />
+        <span class="footer-text">Taskly</span>
+      </div>
+
+      <div class="footer-profiles">
+        <a
+          class="profile"
+          href="https://github.com/kaushal-vani"
+          target="_blank"
+          rel="noopener"
+        >
+          <img src="https://github.com/kaushal-vani.png" alt="Kaushal Vani" />
+          <span>kaushal-vani</span>
+        </a>
+
+        <a
+          class="profile"
+          href="https://github.com/sathish-repos"
+          target="_blank"
+          rel="noopener"
+        >
+          <img src="https://github.com/sathish-repos.png" alt="Sathish Repos" />
+          <span>sathish-repos</span>
+        </a>
+      </div>
+    </div>
+  </ng-container>
+</footer>
