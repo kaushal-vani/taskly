@@ -1,0 +1,54 @@
+<div class="create-task-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h2>Create New Task</h2>
+
+    <!-- Title -->
+    <label for="task-title">Title</label>
+    <input id="task-title" formControlName="title" type="text" />
+
+    <!-- Description -->
+    <label for="task-desc">Description</label>
+    <textarea id="task-desc" formControlName="description"></textarea>
+
+    <!-- Due Date -->
+    <label for="task-due-date">Due Date</label>
+    <input id="task-due-date" formControlName="dueDate" type="date" />
+
+    <!-- Subtasks -->
+    <div formArrayName="subTask">
+      <fieldset>
+        <legend id="subtask-label">Subtasks</legend>
+
+        <div
+          *ngFor="let sub of subTasks.controls; let i = index"
+          [formGroupName]="i"
+          class="subtask-row"
+        >
+          <label [for]="'subtask-' + i">Subtask {{ i + 1 }}</label>
+          <input
+            [id]="'subtask-' + i"
+            formControlName="title"
+            type="text"
+            placeholder="Subtask title"
+            aria-labelledby="subtask-label"
+          />
+          <button type="button" (click)="removeSubTask(i)">Remove</button>
+        </div>
+
+        <button type="button" (click)="addSubTask()">Add Subtask</button>
+      </fieldset>
+    </div>
+
+    <!-- Tags -->
+    <label for="task-tags">Tags (comma-separated)</label>
+    <input
+      id="task-tags"
+      type="text"
+      (blur)="onTagsBlur($event)"
+      placeholder="e.g. work, personal"
+    />
+
+    <!-- Submit -->
+    <button type="submit" [disabled]="form.invalid">Create Task</button>
+  </form>
+</div>

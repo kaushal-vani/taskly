@@ -4,6 +4,7 @@ import { AUTH_API } from '../constants';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { getAuthToken } from '../utils';
+import { Task } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +26,23 @@ export class TaskService {
     });
 
     return this.http.get<any>(`${AUTH_API.GET_TASKS}/${user._id}`, {
+      headers,
+    });
+  }
+
+  createTask(task: Partial<Task>): Observable<any> {
+    const token = getAuthToken();
+
+    if (!token) {
+      throw new Error('Token is missing');
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.post<any>(AUTH_API.CREATE_TASK, task, {
       headers,
     });
   }

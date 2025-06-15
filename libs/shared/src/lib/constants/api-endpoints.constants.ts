@@ -4,4 +4,7 @@ export const AUTH_API = {
   SIGN_UP: `${API_BASE_URL}/auth/sign-up`,
   LOG_IN: `${API_BASE_URL}/auth/sign-in`,
   GET_TASKS:`${API_BASE_URL}/tasks/user`,
+  CREATE_TASK:`${API_BASE_URL}/tasks`,
+  UPDATE_TASK:`${API_BASE_URL}/tasks`,
+  DELETE_TASK:`${API_BASE_URL}/tasks/delete`,
 };

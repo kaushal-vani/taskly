@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-header',
@@ -11,6 +12,7 @@ import { AuthService } from '../../services';
 export class HeaderComponent implements OnInit {
   authService = inject(AuthService);
   isLoggedIn = false;
+  private router = inject(Router);
 
   ngOnInit(): void {
     this.authService.isLoggedIn$.subscribe((status) => {
@@ -21,6 +23,10 @@ export class HeaderComponent implements OnInit {
     if (this.authService.isAuthenticated()) {
       this.isLoggedIn = true;
     }
+  }
+
+  onAddTask(): void {
+this.router.navigate(['/create-task']);
   }
 
   onLogout(): void {

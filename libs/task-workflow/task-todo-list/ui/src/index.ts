@@ -1,0 +1,1 @@
+export * from './lib/features/add-task/add-task.component'
