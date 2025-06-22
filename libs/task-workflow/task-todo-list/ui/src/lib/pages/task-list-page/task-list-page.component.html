@@ -1,0 +1,11 @@
+<div class="task-container-wrapper">
+  <ng-container *ngIf="tasks.length > 0; else emptyState">
+    <lib-task-list [tasks]="tasks"></lib-task-list>
+  </ng-container>
+
+  <ng-template #emptyState>
+    <div class="empty-state">
+      <p>No tasks available. Add your first task to get started!</p>
+    </div>
+  </ng-template>
+</div>

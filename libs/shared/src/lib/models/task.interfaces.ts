@@ -1,5 +1,4 @@
-import { Priority, Status } from "../types";
-import { Tags } from "../types/tags.types";
+import { Priority, Status, Tags } from "../types";
 
 export interface Task {
   color?: string;

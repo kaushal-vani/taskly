@@ -1,0 +1,21 @@
+<div class="task-list-container">
+  <div class="task-column" *ngFor="let status of statuses">
+    <h3 class="column-title">{{ formatStatus(status) }}</h3>
+    <div class="task-card" *ngFor="let task of tasksByStatus[status]">
+      <div class="task-header">
+        <h4 class="task-title">{{ task.title }}</h4>
+        <span class="priority" [ngClass]="task.priority">{{ task.priority }}</span>
+      </div>
+      <p class="task-desc">{{ task.description }}</p>
+      <div class="task-meta">
+        <span class="due-date">{{ getDueText(task.dueDate) }}</span>
+        <div class="tags">
+          <span class="tag" *ngFor="let tag of task.tags">{{ tag }}</span>
+        </div>
+      </div>
+      <div class="task-footer">
+        <button class="action-btn">...</button>
+      </div>
+    </div>
+  </div>
+</div>

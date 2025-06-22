@@ -1,54 +1,112 @@
-<div class="create-task-container">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <h2>Create New Task</h2>
+<div class="form-wrapper">
+<form [formGroup]="form" class="task-form" (ngSubmit)="onSubmit()">
+  <!-- Title -->
+  <div class="form-group">
+    <label for="title">Task Title<span class="required">*</span></label>
+    <input id="title" type="text" formControlName="title" placeholder="Enter task title" />
+  </div>
 
-    <!-- Title -->
-    <label for="task-title">Title</label>
-    <input id="task-title" formControlName="title" type="text" />
+  <!-- Description -->
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea id="description" formControlName="description" placeholder="Add task description"></textarea>
+  </div>
 
-    <!-- Description -->
-    <label for="task-desc">Description</label>
-    <textarea id="task-desc" formControlName="description"></textarea>
+  <!-- Reminder Toggle -->
+  <div class="form-group form-group--inline">
+    <label for="notificationToggle">Enable Reminder?</label>
+    <input id="notificationToggle" type="checkbox" formControlName="notificationEnabled" />
+  </div>
 
-    <!-- Due Date -->
-    <label for="task-due-date">Due Date</label>
-    <input id="task-due-date" formControlName="dueDate" type="date" />
+  <!-- Reminder DateTime -->
+  <div class="form-group" *ngIf="form.get('notificationEnabled')?.value">
+    <label for="reminderAt">Reminder Date & Time</label>
+    <input id="reminderAt" type="datetime-local" formControlName="reminderAt" />
+  </div>
 
-    <!-- Subtasks -->
-    <div formArrayName="subTask">
-      <fieldset>
-        <legend id="subtask-label">Subtasks</legend>
-
-        <div
-          *ngFor="let sub of subTasks.controls; let i = index"
-          [formGroupName]="i"
-          class="subtask-row"
-        >
-          <label [for]="'subtask-' + i">Subtask {{ i + 1 }}</label>
-          <input
-            [id]="'subtask-' + i"
-            formControlName="title"
-            type="text"
-            placeholder="Subtask title"
-            aria-labelledby="subtask-label"
-          />
-          <button type="button" (click)="removeSubTask(i)">Remove</button>
-        </div>
-
-        <button type="button" (click)="addSubTask()">Add Subtask</button>
-      </fieldset>
+  <!-- Priority -->
+  <div class="form-group">
+    <label for="Priority">Priority</label>
+    <div class="radio-group">
+      <label *ngFor="let p of priorityOptions">
+        <input
+          type="radio"
+          name="priority"
+          [value]="p"
+          (change)="form.patchValue({ priority: p })"
+          [checked]="form.get('priority')?.value === p"
+        />
+        {{ p }}
+      </label>
     </div>
+  </div>
 
-    <!-- Tags -->
-    <label for="task-tags">Tags (comma-separated)</label>
-    <input
-      id="task-tags"
-      type="text"
-      (blur)="onTagsBlur($event)"
-      placeholder="e.g. work, personal"
-    />
+  <!-- Status -->
+  <div class="form-group">
+    <label for="Status">Status</label>
+    <div class="radio-group">
+      <label *ngFor="let s of statusOptions">
+        <input
+          type="radio"
+          name="status"
+          [value]="s"
+          (change)="form.patchValue({ status: s })"
+          [checked]="form.get('status')?.value === s"
+        />
+        {{ s }}
+      </label>
+    </div>
+  </div>
 
-    <!-- Submit -->
-    <button type="submit" [disabled]="form.invalid">Create Task</button>
-  </form>
+  <!-- Due Date -->
+  <div class="form-group">
+    <label for="dueDate">Due Date</label>
+    <input id="dueDate" type="date" formControlName="dueDate" />
+  </div>
+
+  <!-- Tags -->
+  <div class="form-group">
+    <label for="Tags">Tags</label>
+    <div class="chip-container">
+      <span
+        *ngFor="let tag of tagOptions"
+        [class.selected]="form.get('tags')?.value.includes(tag)"
+        class="chip"
+        role="button"
+        tabindex="0"
+        (click)="toggleTag(tag)"
+        (keydown.enter)="toggleTag(tag)"
+        (keydown.space)="toggleTag(tag)"
+        [attr.aria-pressed]="form.get('tags')?.value.includes(tag)"
+      >
+        {{ tag }}
+        <span class="remove-icon" *ngIf="form.get('tags')?.value.includes(tag)">&#10005;</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- SubTasks -->
+  <div class="form-group">
+    <label for="SubTasks">SubTasks</label>
+    <div class="subtasks-list">
+      <div *ngFor="let sub of subTasks.controls; let i = index" [formGroup]="getSubTaskFormGroup(i)">
+        <input type="checkbox" formControlName="isCompleted" />
+        <input type="text" formControlName="title" placeholder="Subtask title" />
+        <button type="button" class="btn--icon" (click)="removeSubTask(i)">&#10005;</button>
+      </div>
+    </div>
+    <div class="subtask-add">
+      <input
+        [formControl]="subTaskInputControl"
+        placeholder="Add new subtask"
+        (keydown.enter)="onSubTaskEnter($event)"
+      />
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="form-actions">
+    <button type="submit" class="btn--primary" [disabled]="form.invalid">Create Task</button>
+  </div>
+</form>
 </div>
