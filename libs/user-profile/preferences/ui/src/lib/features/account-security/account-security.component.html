@@ -1,0 +1,21 @@
+<div class="account-security">
+  <h2 class="section-title">Account & Security</h2>
+
+  <!-- Delete Account -->
+  <div class="danger-zone">
+    <h3>Delete Account</h3>
+    <p>
+      Permanently delete your Taskly account. This action is irreversible.
+    </p>
+    <button class="delete-btn" (click)="confirmDelete()">Delete Account</button>
+  </div>
+
+  <!-- Deactivate Account -->
+  <div class="danger-zone">
+    <h3>Deactivate Account</h3>
+    <p>
+      Temporarily disable your account. You can reactivate it later by logging back in.
+    </p>
+    <button class="deactivate-btn" (click)="confirmDeactivate()">Deactivate Account</button>
+  </div>
+</div>

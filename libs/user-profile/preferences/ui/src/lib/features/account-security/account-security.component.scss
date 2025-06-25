@@ -1,0 +1,65 @@
+.account-security {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #111827;
+  }
+
+  .danger-zone {
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #b91c1c;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: #7f1d1d;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      border-radius: 6px;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.2s;
+
+      &.delete-btn {
+        background-color: #b91c1c;
+        color: #fff;
+
+        &:hover {
+          background-color: #991b1b;
+        }
+      }
+
+      &.deactivate-btn {
+        background-color: #fef3c7;
+        color: #92400e;
+
+        &:hover {
+          background-color: #fde68a;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .section-title {
+      display: none;
+    }
+  }
+}

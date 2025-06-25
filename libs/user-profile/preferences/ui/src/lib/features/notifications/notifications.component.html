@@ -1,0 +1,65 @@
+<div class="notification-preferences">
+  <h2 class="section-title">Notification & Reminder Settings</h2>
+
+  <!-- In-App Toggle -->
+<div class="form-group">
+  <label for="inApp">In-App Notifications</label>
+  <div class="toggle-switch">
+    <span>Enable</span>
+    <label class="switch">
+      <input type="checkbox" [(ngModel)]="inAppEnabled" />
+      <span class="slider"></span>
+    </label>
+  </div>
+</div>
+
+  <!-- Frequency -->
+  <div class="form-group" *ngIf="inAppEnabled">
+    <label for="frequency">Notification Frequency</label>
+    <select [(ngModel)]="frequency" id="frequency">
+      <option value="instant">Instant</option>
+      <option value="hourly">Hourly</option>
+      <option value="daily">Daily Digest</option>
+    </select>
+  </div>
+
+  <!-- Task Alerts -->
+  <div class="form-group" *ngIf="inAppEnabled">
+    <label for="task-alerts">Task Alerts</label>
+    <div class="checkbox-group">
+      <label *ngFor="let alert of alertKeys">
+        <input
+          type="checkbox"
+          [checked]="alerts[alert]"
+          (change)="toggleAlert(alert)"
+        />
+        {{ formatLabel(alert) }}
+      </label>
+    </div>
+  </div>
+
+  <!-- Notification Sound -->
+  <div class="form-group" *ngIf="inAppEnabled">
+    <label for="notificationSound">Notification Sound</label>
+    <div class="sound-options">
+      <div *ngFor="let sound of soundOptions" class="sound-option">
+        <input
+          type="radio"
+          name="notificationSound"
+          [value]="sound.value"
+          [(ngModel)]="selectedSound"
+          class="custom-radio"
+        />
+        <span>{{ sound.label }}</span>
+        <button
+          type="button"
+          class="play-btn"
+          (click)="playSound(sound.value)"
+          [disabled]="playing === sound.value"
+        >
+          <img src="assets/preview_sound.png" alt="Preview Sound" />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

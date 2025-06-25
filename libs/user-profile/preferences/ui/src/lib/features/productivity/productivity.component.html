@@ -1,0 +1,60 @@
+<div class="productivity-settings">
+  <h2 class="section-title">Productivity Settings</h2>
+
+  <!-- Focus Mode Toggle -->
+<div class="form-group toggle-row">
+  <div class="focus-mode">
+    <div class="focus-header">
+      <div class="focus-title">Focus Mode</div>
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="focusModeEnabled" />
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="focus-description">
+      Hide completed and low-priority tasks to stay focused.
+    </div>
+  </div>
+</div>
+
+  <!-- Work Interval -->
+  <div class="form-group slider-group">
+    <label for="workInterval">Work Interval: {{ workInterval }} min</label>
+    <input
+      id="workInterval"
+      type="range"
+      min="10"
+      max="60"
+      step="1"
+      [(ngModel)]="workInterval"
+    />
+  </div>
+
+  <!-- Short Break -->
+  <div class="form-group slider-group">
+    <label for="shortBreak">Short Break: {{ shortBreak }} min</label>
+    <input
+      id="shortBreak"
+      type="range"
+      min="3"
+      max="15"
+      step="1"
+      [(ngModel)]="shortBreak"
+    />
+  </div>
+
+  <!-- Long Break -->
+  <div class="form-group slider-group">
+    <label for="longBreak">Long Break: {{ longBreak }} min</label>
+    <input
+      id="longBreak"
+      type="range"
+      min="10"
+      max="30"
+      step="1"
+      [(ngModel)]="longBreak"
+    />
+  </div>
+
+  <button class="save-button" (click)="savePreferences()">Save Preferences</button>
+</div>

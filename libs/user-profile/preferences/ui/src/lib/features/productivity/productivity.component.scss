@@ -1,0 +1,166 @@
+.productivity-settings {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #111827;
+  }
+
+  .form-group {
+    margin-bottom: 2rem;
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #374151;
+    }
+  }
+
+.focus-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .focus-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .focus-title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #111827;
+    }
+
+    .switch {
+      margin-left: 1rem;
+    }
+  }
+
+  .focus-description {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+}
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #d1d5db;
+      transition: 0.4s;
+      border-radius: 24px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+    }
+
+    input:checked + .slider {
+      background-color: #111827;
+    }
+
+    input:checked + .slider::before {
+      transform: translateX(20px);
+    }
+  }
+
+  .slider-group input[type='range'] {
+    width: 100%;
+    margin-top: 0.25rem;
+    appearance: none;
+    height: 6px;
+    border-radius: 4px;
+    background: #e5e7eb;
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #111827;
+      cursor: pointer;
+    }
+
+    &::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #111827;
+      cursor: pointer;
+    }
+
+    &:hover {
+      background: #d1d5db;
+    }
+  }
+
+  .save-button {
+    padding: 0.6rem 1.25rem;
+    background-color: #1f2937;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #111827;
+    }
+  }
+
+@media screen and (max-width: 768px) {
+  .section-title {
+    display: none;
+  }
+
+  .focus-mode {
+    .focus-header {
+      flex-direction: row;
+      align-items: center;
+
+      .focus-title {
+        font-size: 1rem;
+      }
+
+      .switch {
+        margin-left: auto;
+      }
+    }
+
+    .focus-description {
+      margin-top: 0.25rem;
+    }
+  }
+}
+}

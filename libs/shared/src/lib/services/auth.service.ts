@@ -71,6 +71,19 @@ export class AuthService {
     return localStorage.getItem('taskly_token');
   }
 
+  changePassword(currentPassword: string, newPassword: string): Observable<{ success: boolean; message: string }> {
+  const token = this.getToken();
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
+  return this.http.patch<{ success: boolean; message: string }>(
+    AUTH_API.CHANGE_PASSWORD,
+    { currentPassword, newPassword },
+    { headers }
+  );
+}
+
   // Optional: Call this on app load to sync observable with current state
   refreshLoginState(): void {
     this.isLoggedInSubject.next(this.isAuthenticated());

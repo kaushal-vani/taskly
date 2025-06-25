@@ -1,0 +1,39 @@
+<!-- pomodoro-timer.component.html -->
+<div class="pomodoro-timer">
+  <h2 class="title">Stay Focused</h2>
+
+ <div
+  class="timer-circle"
+  [style.background]="getProgressGradient()"
+>
+  <div class="time">{{ formatTime() }}</div>
+</div>
+
+  <p class="session-label">
+    {{ sessionType === 'work' ? 'Focus Time' : sessionType === 'shortBreak' ? 'Short Break' : 'Long Break' }}
+  </p>
+
+  <div class="action-buttons music-style">
+    <button
+      (click)="toggleTimer()"
+      class="icon-btn"
+      [title]="isRunning ? 'Pause' : 'Start'"
+      [attr.aria-label]="isRunning ? 'Pause timer' : 'Start timer'"
+    >
+      <img 
+        [src]="isRunning ? 'assets/timer_pause.png' : 'assets/timer_play.png'"
+        [alt]="isRunning ? 'Pause' : 'Start'"
+      />
+    </button>
+
+    <button (click)="resetTimer()" class="icon-btn" title="Restart" aria-label="Restart timer">
+      <img src="assets/timer_restart.png" alt="Restart" />
+    </button>
+  </div>
+
+  <div class="mode-buttons">
+    <button [class.active]="sessionType === 'work'" (click)="switchSession('work')">Work</button>
+    <button [class.active]="sessionType === 'shortBreak'" (click)="switchSession('shortBreak')">Short Break</button>
+    <button [class.active]="sessionType === 'longBreak'" (click)="switchSession('longBreak')">Long Break</button>
+  </div>
+</div>

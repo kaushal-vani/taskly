@@ -1,0 +1,25 @@
+<div class="ui-ux-preferences">
+  <h2 class="section-title">UI Preferences</h2>
+
+  <div class="form-group">
+    <label for="defaultView">Default View</label>
+
+    <select
+      id="defaultView"
+      [(ngModel)]="selectedView"
+      (ngModelChange)="onDefaultViewChange($event)"
+    >
+      <option value="calendar">Calendar</option>
+      <option value="todo">To-do List</option>
+      <option value="kanban">Kanban Board</option>
+    </select>
+  </div>
+
+  <div class="ui-preview-container">
+    <img
+      src="assets/ui_preferences.png"
+      alt="UI view descriptions"
+      class="ui-preview-img"
+    />
+  </div>
+</div>

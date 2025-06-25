@@ -7,4 +7,5 @@ export const AUTH_API = {
   CREATE_TASK:`${API_BASE_URL}/tasks`,
   UPDATE_TASK:`${API_BASE_URL}/tasks`,
   DELETE_TASK:`${API_BASE_URL}/tasks/delete`,
+  CHANGE_PASSWORD: `${API_BASE_URL}/auth/change-password`,
 };

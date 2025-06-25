@@ -1,0 +1,42 @@
+<div class="user-preferences-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <!-- Desktop Title -->
+    <h2 class="app-title">User Profile</h2>
+
+    <!-- Sidebar Navigation -->
+    <ul class="nav-list">
+      <li *ngFor="let section of sections">
+        <button
+          type="button"
+          class="nav-button"
+          [class.active]="selectedSection === section.key"
+          (click)="selectedSection = section.key"
+        >
+          <span class="icon-wrapper">
+            <img [src]="section.icon" [alt]="section.label" />
+          </span>
+          <span class="label">{{ section.label }}</span>
+        </button>
+      </li>
+    </ul>
+
+    <!-- Active Section Label (Mobile Only) -->
+<p class="active-section-label">
+  {{ activeSectionLabel }}
+</p>
+  </aside>
+
+  <!-- Main Content Area -->
+  <section class="content">
+    <ng-container [ngSwitch]="selectedSection">
+      <lib-basic-settings *ngSwitchCase="'basic'"></lib-basic-settings>
+      <lib-ui-preferences *ngSwitchCase="'ui'"></lib-ui-preferences>
+      <lib-task-preferences *ngSwitchCase="'task'"></lib-task-preferences>
+      <lib-productivity *ngSwitchCase="'productivity'"></lib-productivity>
+      <lib-notifications *ngSwitchCase="'notifications'"></lib-notifications>
+      <lib-account-security *ngSwitchCase="'account'"></lib-account-security>
+      <p *ngSwitchDefault>Select a section</p>
+    </ng-container>
+  </section>
+</div>

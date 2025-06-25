@@ -1,0 +1,32 @@
+<div class="task-preferences">
+  <h2 class="section-title">Task Management Preferences</h2>
+
+  <!-- Default Task Priority -->
+  <div class="form-group">
+    <label for="defaultPriority">Default Task Priority</label>
+    <select [(ngModel)]="defaultPriority" id="defaultPriority">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+  </div>
+
+  <!-- Default Due Time -->
+  <div class="form-group">
+    <label for="defaultDueTime">Default Due Time</label>
+    <input type="time" id="defaultDueTime" [(ngModel)]="defaultDueTime" />
+  </div>
+
+  <!-- Notification Toggles -->
+  <div class="form-group" *ngFor="let pref of preferenceKeys">
+    <div class="toggle-row">
+      <span>{{ formatLabel(pref) }}</span>
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="preferences[pref]" />
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <button class="save-button" (click)="savePreferences()">Save Preferences</button>
+</div>

@@ -1,0 +1,147 @@
+.pomodoro-timer {
+  max-width: 400px;
+  margin: 2rem auto;
+  text-align: center;
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
+  color: #111827;
+  padding: 1rem;
+
+  .title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #0f172a;
+  }
+
+.timer-circle {
+  width: 240px;
+  height: 240px;
+  margin: 0 auto 2rem;
+  border-radius: 50%;
+  position: relative;
+  transition: background 0.3s ease;
+  background: conic-gradient(#000 0%, #e5e7eb 0%); // fallback gradient
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .time {
+    font-size: 3rem;
+    font-weight: 600;
+    z-index: 2;
+    position: relative;
+  }
+
+  // Inner white circle
+  &::after {
+    content: '';
+    position: absolute;
+    width: 85%;
+    height: 85%;
+    background-color: #fff;
+    border-radius: 50%;
+    z-index: 1;
+  }
+}
+
+  .action-buttons.music-style {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+
+    .icon-btn {
+      background: #000;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease-in-out, transform 0.15s ease-in-out;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+
+      &:hover {
+        background-color: #1a1a1a;
+        transform: scale(1.05);
+      }
+
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      img {
+        width: 26px;
+        height: 26px;
+        filter: invert(1); // turns black icons to white
+      }
+    }
+  }
+
+  .mode-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    button {
+      padding: 0.65rem 1.2rem;
+      font-size: 0.95rem;
+      border: 1px solid #d1d5db;
+      background: #fff;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &.active {
+        background-color: #000;
+        color: #fff;
+        font-weight: 600;
+        border-color: #000;
+      }
+
+      &:hover:not(.active) {
+        background-color: #f3f4f6;
+        border-color: #e5e7eb;
+      }
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .timer-circle {
+      width: 180px;
+      height: 180px;
+
+      .time {
+        font-size: 2.5rem;
+      }
+    }
+
+    .action-buttons.music-style {
+      gap: 1.2rem;
+
+      .icon-btn {
+        width: 50px;
+        height: 50px;
+
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    .mode-buttons {
+      gap: 0.6rem;
+
+      button {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+      }
+    }
+  }
+}

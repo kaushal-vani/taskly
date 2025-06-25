@@ -1,0 +1,4 @@
+<div class="custom-alert" *ngIf="visible" [ngClass]="type">
+  <img class="icon" [src]="getIcon()" alt="{{ type }} icon" />
+  <span class="message">{{ message }}</span>
+</div>

@@ -26,7 +26,11 @@ export class HeaderComponent implements OnInit {
   }
 
   onAddTask(): void {
-this.router.navigate(['/create-task']);
+    this.router.navigate(['/create-task']);
+  }
+
+  onTimer(): void {
+    this.router.navigate(['/timer']);
   }
 
   onLogout(): void {

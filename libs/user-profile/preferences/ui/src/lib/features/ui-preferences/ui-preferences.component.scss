@@ -1,0 +1,73 @@
+.ui-ux-preferences {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #111827;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #374151;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 1rem;
+      color: #111827;
+      background-color: #fff;
+
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1.25rem;
+
+      &:focus {
+        outline: none;
+        border-color: #1f2937;
+        box-shadow: 0 0 0 1px #1f2937;
+      }
+    }
+  }
+
+  .ui-preview-container {
+    text-align: center;
+    margin-top: 1.5rem;
+
+    .ui-preview-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 1rem;
+
+    .section-title {
+      display: none;
+    }
+
+    .form-group select {
+      font-size: 0.95rem;
+    }
+
+    .ui-preview-img {
+      margin-top: 1rem;
+    }
+  }
+}

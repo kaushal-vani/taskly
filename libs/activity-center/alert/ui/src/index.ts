@@ -1,1 +1,1 @@
-export * from './lib/alert-ui/alert-ui.component';
+export * from './lib/custom-alert/custom-alert.component'

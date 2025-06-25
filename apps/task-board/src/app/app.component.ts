@@ -1,12 +1,20 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HeaderComponent, FooterComponent } from '@taskly/shared';
+import { CustomAlertComponent } from '@taskly/alert-ui';
+import { HeaderComponent, FooterComponent, AlertService } from '@taskly/shared';
 
 @Component({
-  imports: [RouterModule, HeaderComponent, FooterComponent],
+  imports: [RouterModule, HeaderComponent, FooterComponent, CustomAlertComponent],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  title = 'task-board';}
+export class AppComponent implements AfterViewInit {
+  @ViewChild('globalAlert') alertRef!: CustomAlertComponent;
+
+  constructor(private alertService: AlertService) {}
+
+  ngAfterViewInit(): void {
+    this.alertService.register(this.alertRef);
+  }
+}
