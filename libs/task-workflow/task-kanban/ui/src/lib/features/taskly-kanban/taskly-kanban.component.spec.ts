@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TaskKanbanUiComponent } from './task-kanban-ui.component';
+import { TasklyKanbanComponent } from './taskly-kanban.component';
 
-describe('TaskKanbanUiComponent', () => {
-  let component: TaskKanbanUiComponent;
-  let fixture: ComponentFixture<TaskKanbanUiComponent>;
+describe('TasklyKanbanComponent', () => {
+  let component: TasklyKanbanComponent;
+  let fixture: ComponentFixture<TasklyKanbanComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskKanbanUiComponent],
+      imports: [TasklyKanbanComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TaskKanbanUiComponent);
+    fixture = TestBed.createComponent(TasklyKanbanComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
