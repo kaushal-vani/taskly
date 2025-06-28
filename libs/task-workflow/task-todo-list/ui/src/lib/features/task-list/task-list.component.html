@@ -1,20 +1,34 @@
-<div class="task-list-container">
-  <div class="task-column" *ngFor="let status of statuses">
+<div class="kanban-board">
+  <div
+    class="kanban-column"
+    *ngFor="let status of statuses"
+    (drop)="onDrop($event, status)"
+    (dragover)="onDragOver($event)"
+  >
     <h3 class="column-title">{{ formatStatus(status) }}</h3>
-    <div class="task-card" *ngFor="let task of tasksByStatus[status]">
-      <div class="task-header">
-        <h4 class="task-title">{{ task.title }}</h4>
-        <span class="priority" [ngClass]="task.priority">{{ task.priority }}</span>
-      </div>
-      <p class="task-desc">{{ task.description }}</p>
-      <div class="task-meta">
-        <span class="due-date">{{ getDueText(task.dueDate) }}</span>
-        <div class="tags">
-          <span class="tag" *ngFor="let tag of task.tags">{{ tag }}</span>
-        </div>
-      </div>
+
+    <div
+      class="task-card"
+      *ngFor="let task of tasks[status]"
+      draggable="true"
+      (dragstart)="onDragStart($event, task, status)"
+    >
+      <!-- Top: Title -->
+      <div class="task-title">{{ task.title }}</div>
+
+      <!-- Middle: Description -->
+      <div class="task-desc">{{ task.description }}</div>
+
+      <!-- Bottom: Priority & Deadline -->
       <div class="task-footer">
-        <button class="action-btn">...</button>
+        <div class="priority-section">
+          <lib-priority-indicator [level]="getPriorityLevel(task.priority)">
+          </lib-priority-indicator>
+        </div>
+
+        <div class="deadline" [ngClass]="{ overdue: isOverdue(task.dueDate) }">
+          {{ getDaysLeft(task.dueDate) }}
+        </div>
       </div>
     </div>
   </div>
